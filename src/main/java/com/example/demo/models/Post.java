@@ -1,7 +1,5 @@
 package com.example.demo.models;
 
-import jakarta.persistence.Entity;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -23,7 +21,7 @@ public class Post {
     private Integer userImageId;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinColumn(name = "comment_id")
+    @JoinColumn(name = "post_id")
     private List<Comment> commentList;
 
     public Post() {
