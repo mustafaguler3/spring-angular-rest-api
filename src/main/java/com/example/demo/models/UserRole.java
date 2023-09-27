@@ -1,9 +1,22 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+
 public class UserRole {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(updatable = false,nullable = false)
     private long userRoleId;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     private Role role;
 
     public UserRole() {

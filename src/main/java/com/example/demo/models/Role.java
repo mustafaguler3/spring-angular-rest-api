@@ -1,12 +1,18 @@
 package com.example.demo.models;
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 public class Role {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(updatable = false,nullable = false)
     private int roleId;
     private String name;
+
+    @OneToMany(mappedBy = "role",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Set<UserRole> userRoles = new HashSet<UserRole>();
 
     public Role() {

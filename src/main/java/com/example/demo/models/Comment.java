@@ -1,11 +1,20 @@
 package com.example.demo.models;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
 
 public class Comment {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(updatable = false,nullable = false)
     private Integer id;
     private String username;
+
+    @Column(columnDefinition = "text")
     private String content;
     private Date postedDate;
 
