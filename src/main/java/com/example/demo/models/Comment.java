@@ -1,11 +1,8 @@
 package com.example.demo.models;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
-
+@Entity
 public class Comment {
 
     @Id
