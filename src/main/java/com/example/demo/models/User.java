@@ -1,13 +1,16 @@
 package com.example.demo.models;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Entity
-public class User {
+public class User implements Serializable {
+
+    private static final long serialVersionUID = -1367920162055611043L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
