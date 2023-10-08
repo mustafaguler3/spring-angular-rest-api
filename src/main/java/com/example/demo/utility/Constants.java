@@ -8,5 +8,5 @@ public class Constants {
 
     public static final String POST_FOLDER = "src/main/resource/static/image/post//";
 
-    public static final File TEMP_FOLDER = new File("src/main/resource/static/image/user/temp/profile.png");
+    public static final File TEMP_USER = new File("src/main/resource/static/image/user/temp/profile.png");
 }
