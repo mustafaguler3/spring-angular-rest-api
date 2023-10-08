@@ -1,8 +1,13 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Entity
 public class Post {
@@ -13,15 +18,19 @@ public class Post {
     private Long id;
     private String name;
 
+    private String username;
     @Column(columnDefinition = "text")
     private String caption;
     private String location;
     private int likes;
+
+    @CreationTimestamp
     private Date postedDate;
+
     private Integer userImageId;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinColumn(name = "post_id")
+    //@JoinColumn(name = "post_id")
     private List<Comment> commentList;
 
     public Post() {
@@ -48,6 +57,14 @@ public class Post {
 
     public String getName() {
         return name;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setName(String name) {
@@ -94,12 +111,23 @@ public class Post {
         this.userImageId = userImageId;
     }
 
-    public List<Comment> getCommentList() {
-        return commentList;
-    }
 
     public void setCommentList(List<Comment> commentList) {
         this.commentList = commentList;
+    }
+
+    public Stream<Comment> getCommentList() {
+        if (commentList != null) {
+            return commentList.stream().sorted(Comparator.comparing(Comment::getPostedDate));
+        }
+        return null;
+    }
+
+    @JsonIgnore
+    public void setComments(Comment comment) {
+        if (comment != null) {
+            this.commentList.add(comment);
+        }
     }
 }
 

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -72,18 +73,24 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public String savePostImage(HttpServletRequest request, String fileName) {
-        MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
-        Iterator<String> it = multipartHttpServletRequest.getFileNames();
-        MultipartFile multipartFile = multipartHttpServletRequest.getFile(it.next());
+    public String savePostImage(MultipartFile multipartFile, String fileName) {
+
+        /*
+         * MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)
+         * request; Iterator<String> it = multipartRequest.getFileNames(); MultipartFile
+         * multipartFile = multipartRequest.getFile(it.next());
+         */
+
         try {
             byte[] bytes = multipartFile.getBytes();
-            Path path = Paths.get(Constants.POST_FOLDER+ fileName + ".png");
-            Files.write(path,bytes, StandardOpenOption.CREATE);
-        }catch (Exception ex){
-            return "Error occured . Photo not saved";
+            Path path = Paths.get(Constants.POST_FOLDER + fileName + ".png");
+            Files.write(path, bytes, StandardOpenOption.CREATE);
+        } catch (IOException e) {
+            System.out.println("Error occured. Photo not saved!");
+            return "Error occured. Photo not saved!";
         }
-        return "Phote saved successfully";
+        System.out.println("Photo saved successfully!");
+        return "Photo saved successfully!";
     }
 }
 
